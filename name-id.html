@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Розділення списку на ID та Назву</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  textarea { width: 100%; height: 300px; margin-bottom: 10px; }
+  .columns { display: flex; gap: 20px; margin-top: 10px; }
+  .column { flex: 1; background: #f0f0f0; padding: 10px; overflow-x: auto; white-space: pre; }
+  button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h2>Вставте список (ID : Назва по три рядки)</h2>
+<textarea id="inputList" placeholder="Наприклад:&#10;884&#10;:&#10;Direct Courier - InterSoft Royal Mail Tracked 24 v1_7"></textarea>
+<button onclick="splitList()">Розділити</button>
+
+<div class="columns">
+  <div class="column" id="leftColumn"><b>ID</b>\n</div>
+  <div class="column" id="rightColumn"><b>Назва</b>\n</div>
+</div>
+
+<script>
+function splitList() {
+    const input = document.getElementById("inputList").value.trim();
+    if (!input) {
+        alert("Вставте список рядків!");
+        return;
+    }
+
+    const lines = input.split(/\r?\n/);
+    const leftColumn = [];
+    const rightColumn = [];
+
+    // Проходимо через рядки по три
+    for(let i = 0; i < lines.length; i += 3) {
+        const id = lines[i] ? lines[i].trim() : "";
+        const name = lines[i + 2] ? lines[i + 2].trim() : "";
+        if(id && name) {
+            leftColumn.push(id);
+            rightColumn.push(name);
+        }
+    }
+
+    document.getElementById("leftColumn").textContent = leftColumn.join("\n");
+    document.getElementById("rightColumn").textContent = rightColumn.join("\n");
+}
+</script>
+
+</body>
+</html>

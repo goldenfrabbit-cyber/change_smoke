@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Порівняння списків</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  textarea { width: 45%; height: 200px; margin: 10px; }
+  #result { margin-top: 20px; white-space: pre-wrap; padding: 10px; border: 1px solid #ccc; }
+  button { padding: 10px 20px; margin-top: 10px; }
+  .only-list1 { color: red; }
+  .only-list2 { color: green; }
+  .common { color: black; }
+</style>
+</head>
+<body>
+
+<h2>Порівняння двох списків чисел</h2>
+
+<textarea id="list1" placeholder="Вставте перший список, по одному числу на рядок"></textarea>
+<textarea id="list2" placeholder="Вставте другий список, по одному числу на рядок"></textarea>
+<br>
+<button onclick="compareLists()">Порівняти списки</button>
+<button onclick="copyResult()">Скопіювати результат</button>
+
+<div id="result"></div>
+
+<script>
+function compareLists() {
+    const list1 = document.getElementById('list1').value.split('\n').map(Number).filter(n => !isNaN(n));
+    const list2 = document.getElementById('list2').value.split('\n').map(Number).filter(n => !isNaN(n));
+
+    const set1 = new Set(list1);
+    const set2 = new Set(list2);
+
+    const allNumbers = Array.from(new Set([...list1, ...list2]));
+    
+    let html = '';
+    allNumbers.forEach(num => {
+        if (set1.has(num) && !set2.has(num)) {
+            html += `<span class="only-list1">${num}</span>\n`;
+        } else if (!set1.has(num) && set2.has(num)) {
+            html += `<span class="only-list2">${num}</span>\n`;
+        } else {
+            html += `<span class="common">${num}</span>\n`;
+        }
+    });
+
+    document.getElementById('result').innerHTML = html;
+}
+
+function copyResult() {
+    const result = document.getElementById('result').innerText;
+    navigator.clipboard.writeText(result).then(() => {
+        alert('Результат скопійовано у буфер обміну!');
+    });
+}
+</script>
+
+</body>
+</html>
