@@ -5,7 +5,8 @@
 <title>Підбір пар чисел</title>
 <style>
   textarea { width: 45%; height: 300px; margin: 5px; }
-  .container { display: flex; justify-content: space-between; }
+  .container { display: flex; gap: 20px; }
+  .container textarea {min-width: 200px;}
 </style>
 </head>
 <body>
@@ -22,11 +23,11 @@
 <h3>Результат:</h3>
 <div class="container">
   <div>
-    <label>Лівий стовпчик (використовуємо для порівняння):</label><br>
+    <label>Взідні дані:</label><br>
     <textarea id="leftColumn" readonly></textarea>
   </div>
   <div>
-    <label>Правий стовпчик (підібрані значення):</label><br>
+    <label>Результат:</label><br>
     <textarea id="rightColumn" readonly></textarea>
   </div>
 </div>
